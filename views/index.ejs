@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $("form").on('submit',function () {
+
+        $.ajax({url:"/addItem",type:"post",data:$("#todo").val(),success:function(data){
+            location.reload();
+        }});
+
+    });
+  });
+
+  </script>
+
+</head>
+<body>
+  <form  required>
+    <input type="text" name="todo" id="todo">
+    <input type="submit"  value="Add">
+
+  </form>
+</body>
+</html>
