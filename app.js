@@ -3,7 +3,7 @@ const controller = require('./controller/todoController.js');
 
 var app=express();
 app.set('view engine','ejs');
-
+app.use(express.static('./resources'));
   controller(app);
 
 //create server

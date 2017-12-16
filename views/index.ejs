@@ -5,16 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <style>
+    li:hover{
+
+      text-decoration: line-through;
+    }
+  </style>
+
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
-  $(document).ready(function(){
-    $("form").on('submit',function () {
 
-        $.ajax({url:"/addItem",type:"post",data:$("#todo").val(),success:function(data){
+  $(document).ready(function(){
+    $("button").on('click',function () {
+
+        $.ajax({url:"/addItem",type:'post',data:$("#todo").val(),success:function(data){
             location.reload();
         }});
 
     });
+    $("li").click(function(){
+          var item=$(this).text();
+          $.ajax({
+                type: 'DELETE',
+                url: '/todo/' + item,
+                success: function(data){
+      //do something with the data via front-end framework
+                    location.reload();
+              }
+          });
+
+
+    });
+
   });
 
   </script>
@@ -23,8 +46,16 @@
 <body>
   <form  required>
     <input type="text" name="todo" id="todo">
-    <input type="submit"  value="Add">
+    <button >Add Item</button>
 
   </form>
+<ul>
+  <% todo.forEach(function(temp){ %>
+      <li><%= temp.item %></li>
+
+  <% }) %>
+</ul>
+
+
 </body>
 </html>
