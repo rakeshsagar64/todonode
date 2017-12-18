@@ -17,13 +17,19 @@
   <script type="text/javascript">
 
   $(document).ready(function(){
-    $("button").on('click',function () {
+    console.log("jquery working");
 
-        $.ajax({url:"/addItem",type:'post',data:$("#todo").val(),success:function(data){
+    $("#submit").click(function () {
+        var item=$("#todo").val();
+        console.log("++++++"+item);
+
+        $.post("add",{todo:item},function(data,status){
+            console.log("added");
             location.reload();
-        }});
+        });
 
     });
+
     $("li").click(function(){
           var item=$(this).text();
           $.ajax({
@@ -44,14 +50,13 @@
 
 </head>
 <body>
-  <form  required>
-    <input type="text" name="todo" id="todo">
-    <button >Add Item</button>
 
-  </form>
+    <input type="text" name="todo" id="todo">
+    <a href="#" id="submit">Add Item</a>
+
 <ul>
   <% todo.forEach(function(temp){ %>
-      <li><%= temp.item %></li>
+      <li><%= temp.todo %></li>
 
   <% }) %>
 </ul>
